@@ -1,7 +1,7 @@
 {
   "author": "Dmitrii Zakharov",
   "bugs": "https://github.com/senior-debugger/webpack-plugin-conceal/issues/",
-  "description": "Webpack plugin for encoding and embedding Base64-encoded content into JavaScript/TypeScript source files.",
+  "description": "Webpack plugin to conceal structured data; transforms default-exported JavaScript object arrays into Base64 at build time, and decodes them at runtime. Helps obscure sensitive or business-critical data in your frontend bundle.",
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "buffer": "^6.0.3",
@@ -48,5 +48,5 @@
   },
   "type": "module",
   "types": "dist/index.d.ts",
-  "version": "1.3.0"
+  "version": "1.4.2"
 }

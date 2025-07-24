@@ -12,9 +12,6 @@ export default defineConfig([
     plugins: {
       js
     },
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-    },
     extends: ['js/recommended']
   },
   {

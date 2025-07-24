@@ -1,47 +1,47 @@
 var buffer = {}, base64Js = {}, hasRequiredBase64Js;
 function requireBase64Js() {
   if (hasRequiredBase64Js) return base64Js;
-  hasRequiredBase64Js = 1, base64Js.byteLength = u, base64Js.toByteArray = N, base64Js.fromByteArray = M;
-  for (var a = [], h = [], B = typeof Uint8Array < "u" ? Uint8Array : Array, E = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", y = 0, I = E.length; y < I; ++y)
-    a[y] = E[y], h[E.charCodeAt(y)] = y;
+  hasRequiredBase64Js = 1, base64Js.byteLength = u, base64Js.toByteArray = L, base64Js.fromByteArray = M;
+  for (var p = [], h = [], w = typeof Uint8Array < "u" ? Uint8Array : Array, d = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", y = 0, I = d.length; y < I; ++y)
+    p[y] = d[y], h[d.charCodeAt(y)] = y;
   h[45] = 62, h[95] = 63;
-  function p(c) {
+  function s(c) {
     var l = c.length;
     if (l % 4 > 0)
       throw new Error("Invalid string. Length must be a multiple of 4");
-    var w = c.indexOf("=");
-    w === -1 && (w = l);
-    var C = w === l ? 0 : 4 - w % 4;
-    return [w, C];
+    var x = c.indexOf("=");
+    x === -1 && (x = l);
+    var C = x === l ? 0 : 4 - x % 4;
+    return [x, C];
   }
   function u(c) {
-    var l = p(c), w = l[0], C = l[1];
-    return (w + C) * 3 / 4 - C;
+    var l = s(c), x = l[0], C = l[1];
+    return (x + C) * 3 / 4 - C;
   }
-  function _(c, l, w) {
-    return (l + w) * 3 / 4 - w;
+  function _(c, l, x) {
+    return (l + x) * 3 / 4 - x;
   }
-  function N(c) {
-    var l, w = p(c), C = w[0], S = w[1], R = new B(_(c, C, S)), b = 0, P = S > 0 ? C - 4 : C, F;
-    for (F = 0; F < P; F += 4)
+  function L(c) {
+    var l, x = s(c), C = x[0], S = x[1], R = new w(_(c, C, S)), b = 0, $ = S > 0 ? C - 4 : C, F;
+    for (F = 0; F < $; F += 4)
       l = h[c.charCodeAt(F)] << 18 | h[c.charCodeAt(F + 1)] << 12 | h[c.charCodeAt(F + 2)] << 6 | h[c.charCodeAt(F + 3)], R[b++] = l >> 16 & 255, R[b++] = l >> 8 & 255, R[b++] = l & 255;
     return S === 2 && (l = h[c.charCodeAt(F)] << 2 | h[c.charCodeAt(F + 1)] >> 4, R[b++] = l & 255), S === 1 && (l = h[c.charCodeAt(F)] << 10 | h[c.charCodeAt(F + 1)] << 4 | h[c.charCodeAt(F + 2)] >> 2, R[b++] = l >> 8 & 255, R[b++] = l & 255), R;
   }
   function A(c) {
-    return a[c >> 18 & 63] + a[c >> 12 & 63] + a[c >> 6 & 63] + a[c & 63];
+    return p[c >> 18 & 63] + p[c >> 12 & 63] + p[c >> 6 & 63] + p[c & 63];
   }
-  function U(c, l, w) {
-    for (var C, S = [], R = l; R < w; R += 3)
+  function U(c, l, x) {
+    for (var C, S = [], R = l; R < x; R += 3)
       C = (c[R] << 16 & 16711680) + (c[R + 1] << 8 & 65280) + (c[R + 2] & 255), S.push(A(C));
     return S.join("");
   }
   function M(c) {
-    for (var l, w = c.length, C = w % 3, S = [], R = 16383, b = 0, P = w - C; b < P; b += R)
-      S.push(U(c, b, b + R > P ? P : b + R));
-    return C === 1 ? (l = c[w - 1], S.push(
-      a[l >> 2] + a[l << 4 & 63] + "=="
-    )) : C === 2 && (l = (c[w - 2] << 8) + c[w - 1], S.push(
-      a[l >> 10] + a[l >> 4 & 63] + a[l << 2 & 63] + "="
+    for (var l, x = c.length, C = x % 3, S = [], R = 16383, b = 0, $ = x - C; b < $; b += R)
+      S.push(U(c, b, b + R > $ ? $ : b + R));
+    return C === 1 ? (l = c[x - 1], S.push(
+      p[l >> 2] + p[l << 4 & 63] + "=="
+    )) : C === 2 && (l = (c[x - 2] << 8) + c[x - 1], S.push(
+      p[l >> 10] + p[l >> 4 & 63] + p[l << 2 & 63] + "="
     )), S.join("");
   }
   return base64Js;
@@ -50,27 +50,27 @@ var ieee754 = {};
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 var hasRequiredIeee754;
 function requireIeee754() {
-  return hasRequiredIeee754 || (hasRequiredIeee754 = 1, ieee754.read = function(a, h, B, E, y) {
-    var I, p, u = y * 8 - E - 1, _ = (1 << u) - 1, N = _ >> 1, A = -7, U = B ? y - 1 : 0, M = B ? -1 : 1, c = a[h + U];
-    for (U += M, I = c & (1 << -A) - 1, c >>= -A, A += u; A > 0; I = I * 256 + a[h + U], U += M, A -= 8)
+  return hasRequiredIeee754 || (hasRequiredIeee754 = 1, ieee754.read = function(p, h, w, d, y) {
+    var I, s, u = y * 8 - d - 1, _ = (1 << u) - 1, L = _ >> 1, A = -7, U = w ? y - 1 : 0, M = w ? -1 : 1, c = p[h + U];
+    for (U += M, I = c & (1 << -A) - 1, c >>= -A, A += u; A > 0; I = I * 256 + p[h + U], U += M, A -= 8)
       ;
-    for (p = I & (1 << -A) - 1, I >>= -A, A += E; A > 0; p = p * 256 + a[h + U], U += M, A -= 8)
+    for (s = I & (1 << -A) - 1, I >>= -A, A += d; A > 0; s = s * 256 + p[h + U], U += M, A -= 8)
       ;
     if (I === 0)
-      I = 1 - N;
+      I = 1 - L;
     else {
       if (I === _)
-        return p ? NaN : (c ? -1 : 1) * (1 / 0);
-      p = p + Math.pow(2, E), I = I - N;
+        return s ? NaN : (c ? -1 : 1) * (1 / 0);
+      s = s + Math.pow(2, d), I = I - L;
     }
-    return (c ? -1 : 1) * p * Math.pow(2, I - E);
-  }, ieee754.write = function(a, h, B, E, y, I) {
-    var p, u, _, N = I * 8 - y - 1, A = (1 << N) - 1, U = A >> 1, M = y === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0, c = E ? 0 : I - 1, l = E ? 1 : -1, w = h < 0 || h === 0 && 1 / h < 0 ? 1 : 0;
-    for (h = Math.abs(h), isNaN(h) || h === 1 / 0 ? (u = isNaN(h) ? 1 : 0, p = A) : (p = Math.floor(Math.log(h) / Math.LN2), h * (_ = Math.pow(2, -p)) < 1 && (p--, _ *= 2), p + U >= 1 ? h += M / _ : h += M * Math.pow(2, 1 - U), h * _ >= 2 && (p++, _ /= 2), p + U >= A ? (u = 0, p = A) : p + U >= 1 ? (u = (h * _ - 1) * Math.pow(2, y), p = p + U) : (u = h * Math.pow(2, U - 1) * Math.pow(2, y), p = 0)); y >= 8; a[B + c] = u & 255, c += l, u /= 256, y -= 8)
+    return (c ? -1 : 1) * s * Math.pow(2, I - d);
+  }, ieee754.write = function(p, h, w, d, y, I) {
+    var s, u, _, L = I * 8 - y - 1, A = (1 << L) - 1, U = A >> 1, M = y === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0, c = d ? 0 : I - 1, l = d ? 1 : -1, x = h < 0 || h === 0 && 1 / h < 0 ? 1 : 0;
+    for (h = Math.abs(h), isNaN(h) || h === 1 / 0 ? (u = isNaN(h) ? 1 : 0, s = A) : (s = Math.floor(Math.log(h) / Math.LN2), h * (_ = Math.pow(2, -s)) < 1 && (s--, _ *= 2), s + U >= 1 ? h += M / _ : h += M * Math.pow(2, 1 - U), h * _ >= 2 && (s++, _ /= 2), s + U >= A ? (u = 0, s = A) : s + U >= 1 ? (u = (h * _ - 1) * Math.pow(2, y), s = s + U) : (u = h * Math.pow(2, U - 1) * Math.pow(2, y), s = 0)); y >= 8; p[w + c] = u & 255, c += l, u /= 256, y -= 8)
       ;
-    for (p = p << y | u, N += y; N > 0; a[B + c] = p & 255, c += l, p /= 256, N -= 8)
+    for (s = s << y | u, L += y; L > 0; p[w + c] = s & 255, c += l, s /= 256, L -= 8)
       ;
-    a[B + c - l] |= w * 128;
+    p[w + c - l] |= x * 128;
   }), ieee754;
 }
 /*!
@@ -81,11 +81,11 @@ function requireIeee754() {
  */
 var hasRequiredBuffer;
 function requireBuffer() {
-  return hasRequiredBuffer || (hasRequiredBuffer = 1, function(a) {
-    const h = requireBase64Js(), B = requireIeee754(), E = typeof Symbol == "function" && typeof Symbol.for == "function" ? Symbol.for("nodejs.util.inspect.custom") : null;
-    a.Buffer = u, a.SlowBuffer = R, a.INSPECT_MAX_BYTES = 50;
+  return hasRequiredBuffer || (hasRequiredBuffer = 1, function(p) {
+    const h = requireBase64Js(), w = requireIeee754(), d = typeof Symbol == "function" && typeof Symbol.for == "function" ? Symbol.for("nodejs.util.inspect.custom") : null;
+    p.Buffer = u, p.SlowBuffer = R, p.INSPECT_MAX_BYTES = 50;
     const y = 2147483647;
-    a.kMaxLength = y, u.TYPED_ARRAY_SUPPORT = I(), !u.TYPED_ARRAY_SUPPORT && typeof console < "u" && typeof console.error == "function" && console.error(
+    p.kMaxLength = y, u.TYPED_ARRAY_SUPPORT = I(), !u.TYPED_ARRAY_SUPPORT && typeof console < "u" && typeof console.error == "function" && console.error(
       "This browser lacks typed array (Uint8Array) support which is required by `buffer` v5.x. Use `buffer` v4.x if you require old browser support."
     );
     function I() {
@@ -111,7 +111,7 @@ function requireBuffer() {
           return this.byteOffset;
       }
     });
-    function p(e) {
+    function s(e) {
       if (e > y)
         throw new RangeError('The value "' + e + '" is invalid for option "size"');
       const r = new Uint8Array(e);
@@ -138,7 +138,7 @@ function requireBuffer() {
           "The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof e
         );
       if (k(e, ArrayBuffer) || e && k(e.buffer, ArrayBuffer) || typeof SharedArrayBuffer < "u" && (k(e, SharedArrayBuffer) || e && k(e.buffer, SharedArrayBuffer)))
-        return w(e, r, t);
+        return x(e, r, t);
       if (typeof e == "number")
         throw new TypeError(
           'The "value" argument must not be of type number. Received type number'
@@ -157,20 +157,20 @@ function requireBuffer() {
     u.from = function(e, r, t) {
       return _(e, r, t);
     }, Object.setPrototypeOf(u.prototype, Uint8Array.prototype), Object.setPrototypeOf(u, Uint8Array);
-    function N(e) {
+    function L(e) {
       if (typeof e != "number")
         throw new TypeError('"size" argument must be of type number');
       if (e < 0)
         throw new RangeError('The value "' + e + '" is invalid for option "size"');
     }
     function A(e, r, t) {
-      return N(e), e <= 0 ? p(e) : r !== void 0 ? typeof t == "string" ? p(e).fill(r, t) : p(e).fill(r) : p(e);
+      return L(e), e <= 0 ? s(e) : r !== void 0 ? typeof t == "string" ? s(e).fill(r, t) : s(e).fill(r) : s(e);
     }
     u.alloc = function(e, r, t) {
       return A(e, r, t);
     };
     function U(e) {
-      return N(e), p(e < 0 ? 0 : S(e) | 0);
+      return L(e), s(e < 0 ? 0 : S(e) | 0);
     }
     u.allocUnsafe = function(e) {
       return U(e);
@@ -181,12 +181,12 @@ function requireBuffer() {
       if ((typeof r != "string" || r === "") && (r = "utf8"), !u.isEncoding(r))
         throw new TypeError("Unknown encoding: " + r);
       const t = b(e, r) | 0;
-      let i = p(t);
+      let i = s(t);
       const n = i.write(e, r);
       return n !== t && (i = i.slice(0, n)), i;
     }
     function c(e) {
-      const r = e.length < 0 ? 0 : S(e.length) | 0, t = p(r);
+      const r = e.length < 0 ? 0 : S(e.length) | 0, t = s(r);
       for (let i = 0; i < r; i += 1)
         t[i] = e[i] & 255;
       return t;
@@ -194,11 +194,11 @@ function requireBuffer() {
     function l(e) {
       if (k(e, Uint8Array)) {
         const r = new Uint8Array(e);
-        return w(r.buffer, r.byteOffset, r.byteLength);
+        return x(r.buffer, r.byteOffset, r.byteLength);
       }
       return c(e);
     }
-    function w(e, r, t) {
+    function x(e, r, t) {
       if (r < 0 || e.byteLength < r)
         throw new RangeError('"offset" is outside of buffer bounds');
       if (e.byteLength < r + (t || 0))
@@ -208,11 +208,11 @@ function requireBuffer() {
     }
     function C(e) {
       if (u.isBuffer(e)) {
-        const r = S(e.length) | 0, t = p(r);
+        const r = S(e.length) | 0, t = s(r);
         return t.length === 0 || e.copy(t, 0, 0, r), t;
       }
       if (e.length !== void 0)
-        return typeof e.length != "number" || Y(e.length) ? p(0) : c(e);
+        return typeof e.length != "number" || Y(e.length) ? s(0) : c(e);
       if (e.type === "Buffer" && Array.isArray(e.data))
         return c(e.data);
     }
@@ -320,7 +320,7 @@ function requireBuffer() {
         }
     }
     u.byteLength = b;
-    function P(e, r, t) {
+    function $(e, r, t) {
       let i = !1;
       if ((r === void 0 || r < 0) && (r = 0), r > this.length || ((t === void 0 || t > this.length) && (t = this.length), t <= 0) || (t >>>= 0, r >>>= 0, t <= r))
         return "";
@@ -376,15 +376,15 @@ function requireBuffer() {
       return this;
     }, u.prototype.toString = function() {
       const r = this.length;
-      return r === 0 ? "" : arguments.length === 0 ? V(this, 0, r) : P.apply(this, arguments);
+      return r === 0 ? "" : arguments.length === 0 ? V(this, 0, r) : $.apply(this, arguments);
     }, u.prototype.toLocaleString = u.prototype.toString, u.prototype.equals = function(r) {
       if (!u.isBuffer(r)) throw new TypeError("Argument must be a Buffer");
       return this === r ? !0 : u.compare(this, r) === 0;
     }, u.prototype.inspect = function() {
       let r = "";
-      const t = a.INSPECT_MAX_BYTES;
+      const t = p.INSPECT_MAX_BYTES;
       return r = this.toString("hex", 0, t).replace(/(.{2})/g, "$1 ").trim(), this.length > t && (r += " ... "), "<Buffer " + r + ">";
-    }, E && (u.prototype[E] = u.prototype.inspect), u.prototype.compare = function(r, t, i, n, o) {
+    }, d && (u.prototype[d] = u.prototype.inspect), u.prototype.compare = function(r, t, i, n, o) {
       if (k(r, Uint8Array) && (r = u.from(r, r.offset, r.byteLength)), !u.isBuffer(r))
         throw new TypeError(
           'The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof r
@@ -398,14 +398,14 @@ function requireBuffer() {
       if (t >= i)
         return 1;
       if (t >>>= 0, i >>>= 0, n >>>= 0, o >>>= 0, this === r) return 0;
-      let f = o - n, s = i - t;
-      const g = Math.min(f, s), d = this.slice(n, o), m = r.slice(t, i);
-      for (let x = 0; x < g; ++x)
-        if (d[x] !== m[x]) {
-          f = d[x], s = m[x];
+      let f = o - n, a = i - t;
+      const g = Math.min(f, a), E = this.slice(n, o), m = r.slice(t, i);
+      for (let B = 0; B < g; ++B)
+        if (E[B] !== m[B]) {
+          f = E[B], a = m[B];
           break;
         }
-      return f < s ? -1 : s < f ? 1 : 0;
+      return f < a ? -1 : a < f ? 1 : 0;
     };
     function W(e, r, t, i, n) {
       if (e.length === 0) return -1;
@@ -422,32 +422,32 @@ function requireBuffer() {
       throw new TypeError("val must be string, number or Buffer");
     }
     function H(e, r, t, i, n) {
-      let o = 1, f = e.length, s = r.length;
+      let o = 1, f = e.length, a = r.length;
       if (i !== void 0 && (i = String(i).toLowerCase(), i === "ucs2" || i === "ucs-2" || i === "utf16le" || i === "utf-16le")) {
         if (e.length < 2 || r.length < 2)
           return -1;
-        o = 2, f /= 2, s /= 2, t /= 2;
+        o = 2, f /= 2, a /= 2, t /= 2;
       }
-      function g(m, x) {
-        return o === 1 ? m[x] : m.readUInt16BE(x * o);
+      function g(m, B) {
+        return o === 1 ? m[B] : m.readUInt16BE(B * o);
       }
-      let d;
+      let E;
       if (n) {
         let m = -1;
-        for (d = t; d < f; d++)
-          if (g(e, d) === g(r, m === -1 ? 0 : d - m)) {
-            if (m === -1 && (m = d), d - m + 1 === s) return m * o;
+        for (E = t; E < f; E++)
+          if (g(e, E) === g(r, m === -1 ? 0 : E - m)) {
+            if (m === -1 && (m = E), E - m + 1 === a) return m * o;
           } else
-            m !== -1 && (d -= d - m), m = -1;
+            m !== -1 && (E -= E - m), m = -1;
       } else
-        for (t + s > f && (t = f - s), d = t; d >= 0; d--) {
+        for (t + a > f && (t = f - a), E = t; E >= 0; E--) {
           let m = !0;
-          for (let x = 0; x < s; x++)
-            if (g(e, d + x) !== g(r, x)) {
+          for (let B = 0; B < a; B++)
+            if (g(e, E + B) !== g(r, B)) {
               m = !1;
               break;
             }
-          if (m) return d;
+          if (m) return E;
         }
       return -1;
     }
@@ -466,9 +466,9 @@ function requireBuffer() {
       i > o / 2 && (i = o / 2);
       let f;
       for (f = 0; f < i; ++f) {
-        const s = parseInt(r.substr(f * 2, 2), 16);
-        if (Y(s)) return f;
-        e[t + f] = s;
+        const a = parseInt(r.substr(f * 2, 2), 16);
+        if (Y(a)) return f;
+        e[t + f] = a;
       }
       return f;
     }
@@ -537,24 +537,24 @@ function requireBuffer() {
       let n = r;
       for (; n < t; ) {
         const o = e[n];
-        let f = null, s = o > 239 ? 4 : o > 223 ? 3 : o > 191 ? 2 : 1;
-        if (n + s <= t) {
-          let g, d, m, x;
-          switch (s) {
+        let f = null, a = o > 239 ? 4 : o > 223 ? 3 : o > 191 ? 2 : 1;
+        if (n + a <= t) {
+          let g, E, m, B;
+          switch (a) {
             case 1:
               o < 128 && (f = o);
               break;
             case 2:
-              g = e[n + 1], (g & 192) === 128 && (x = (o & 31) << 6 | g & 63, x > 127 && (f = x));
+              g = e[n + 1], (g & 192) === 128 && (B = (o & 31) << 6 | g & 63, B > 127 && (f = B));
               break;
             case 3:
-              g = e[n + 1], d = e[n + 2], (g & 192) === 128 && (d & 192) === 128 && (x = (o & 15) << 12 | (g & 63) << 6 | d & 63, x > 2047 && (x < 55296 || x > 57343) && (f = x));
+              g = e[n + 1], E = e[n + 2], (g & 192) === 128 && (E & 192) === 128 && (B = (o & 15) << 12 | (g & 63) << 6 | E & 63, B > 2047 && (B < 55296 || B > 57343) && (f = B));
               break;
             case 4:
-              g = e[n + 1], d = e[n + 2], m = e[n + 3], (g & 192) === 128 && (d & 192) === 128 && (m & 192) === 128 && (x = (o & 15) << 18 | (g & 63) << 12 | (d & 63) << 6 | m & 63, x > 65535 && x < 1114112 && (f = x));
+              g = e[n + 1], E = e[n + 2], m = e[n + 3], (g & 192) === 128 && (E & 192) === 128 && (m & 192) === 128 && (B = (o & 15) << 18 | (g & 63) << 12 | (E & 63) << 6 | m & 63, B > 65535 && B < 1114112 && (f = B));
           }
         }
-        f === null ? (f = 65533, s = 1) : f > 65535 && (f -= 65536, i.push(f >>> 10 & 1023 | 55296), f = 56320 | f & 1023), i.push(f), n += s;
+        f === null ? (f = 65533, a = 1) : f > 65535 && (f -= 65536, i.push(f >>> 10 & 1023 | 55296), f = 56320 | f & 1023), i.push(f), n += a;
       }
       return cr(i);
     }
@@ -684,23 +684,23 @@ function requireBuffer() {
       this[++r] * 2 ** 16 + this[++r] * 2 ** 8 + this[++r];
       return (BigInt(n) << BigInt(32)) + BigInt(this[++r] * 2 ** 24 + this[++r] * 2 ** 16 + this[++r] * 2 ** 8 + i);
     }), u.prototype.readFloatLE = function(r, t) {
-      return r = r >>> 0, t || T(r, 4, this.length), B.read(this, r, !0, 23, 4);
+      return r = r >>> 0, t || T(r, 4, this.length), w.read(this, r, !0, 23, 4);
     }, u.prototype.readFloatBE = function(r, t) {
-      return r = r >>> 0, t || T(r, 4, this.length), B.read(this, r, !1, 23, 4);
+      return r = r >>> 0, t || T(r, 4, this.length), w.read(this, r, !1, 23, 4);
     }, u.prototype.readDoubleLE = function(r, t) {
-      return r = r >>> 0, t || T(r, 8, this.length), B.read(this, r, !0, 52, 8);
+      return r = r >>> 0, t || T(r, 8, this.length), w.read(this, r, !0, 52, 8);
     }, u.prototype.readDoubleBE = function(r, t) {
-      return r = r >>> 0, t || T(r, 8, this.length), B.read(this, r, !1, 52, 8);
+      return r = r >>> 0, t || T(r, 8, this.length), w.read(this, r, !1, 52, 8);
     };
-    function L(e, r, t, i, n, o) {
+    function N(e, r, t, i, n, o) {
       if (!u.isBuffer(e)) throw new TypeError('"buffer" argument must be a Buffer instance');
       if (r > n || r < o) throw new RangeError('"value" argument is out of bounds');
       if (t + i > e.length) throw new RangeError("Index out of range");
     }
     u.prototype.writeUintLE = u.prototype.writeUIntLE = function(r, t, i, n) {
       if (r = +r, t = t >>> 0, i = i >>> 0, !n) {
-        const s = Math.pow(2, 8 * i) - 1;
-        L(this, r, t, i, s, 0);
+        const a = Math.pow(2, 8 * i) - 1;
+        N(this, r, t, i, a, 0);
       }
       let o = 1, f = 0;
       for (this[t] = r & 255; ++f < i && (o *= 256); )
@@ -708,23 +708,23 @@ function requireBuffer() {
       return t + i;
     }, u.prototype.writeUintBE = u.prototype.writeUIntBE = function(r, t, i, n) {
       if (r = +r, t = t >>> 0, i = i >>> 0, !n) {
-        const s = Math.pow(2, 8 * i) - 1;
-        L(this, r, t, i, s, 0);
+        const a = Math.pow(2, 8 * i) - 1;
+        N(this, r, t, i, a, 0);
       }
       let o = i - 1, f = 1;
       for (this[t + o] = r & 255; --o >= 0 && (f *= 256); )
         this[t + o] = r / f & 255;
       return t + i;
     }, u.prototype.writeUint8 = u.prototype.writeUInt8 = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 1, 255, 0), this[t] = r & 255, t + 1;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 1, 255, 0), this[t] = r & 255, t + 1;
     }, u.prototype.writeUint16LE = u.prototype.writeUInt16LE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 2, 65535, 0), this[t] = r & 255, this[t + 1] = r >>> 8, t + 2;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 2, 65535, 0), this[t] = r & 255, this[t + 1] = r >>> 8, t + 2;
     }, u.prototype.writeUint16BE = u.prototype.writeUInt16BE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 2, 65535, 0), this[t] = r >>> 8, this[t + 1] = r & 255, t + 2;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 2, 65535, 0), this[t] = r >>> 8, this[t + 1] = r & 255, t + 2;
     }, u.prototype.writeUint32LE = u.prototype.writeUInt32LE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 4, 4294967295, 0), this[t + 3] = r >>> 24, this[t + 2] = r >>> 16, this[t + 1] = r >>> 8, this[t] = r & 255, t + 4;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 4, 4294967295, 0), this[t + 3] = r >>> 24, this[t + 2] = r >>> 16, this[t + 1] = r >>> 8, this[t] = r & 255, t + 4;
     }, u.prototype.writeUint32BE = u.prototype.writeUInt32BE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 4, 4294967295, 0), this[t] = r >>> 24, this[t + 1] = r >>> 16, this[t + 2] = r >>> 8, this[t + 3] = r & 255, t + 4;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 4, 4294967295, 0), this[t] = r >>> 24, this[t + 1] = r >>> 16, this[t + 2] = r >>> 8, this[t + 3] = r & 255, t + 4;
     };
     function z(e, r, t, i, n) {
       tr(r, i, n, e, t, 7);
@@ -747,31 +747,31 @@ function requireBuffer() {
     }), u.prototype.writeIntLE = function(r, t, i, n) {
       if (r = +r, t = t >>> 0, !n) {
         const g = Math.pow(2, 8 * i - 1);
-        L(this, r, t, i, g - 1, -g);
+        N(this, r, t, i, g - 1, -g);
       }
-      let o = 0, f = 1, s = 0;
+      let o = 0, f = 1, a = 0;
       for (this[t] = r & 255; ++o < i && (f *= 256); )
-        r < 0 && s === 0 && this[t + o - 1] !== 0 && (s = 1), this[t + o] = (r / f >> 0) - s & 255;
+        r < 0 && a === 0 && this[t + o - 1] !== 0 && (a = 1), this[t + o] = (r / f >> 0) - a & 255;
       return t + i;
     }, u.prototype.writeIntBE = function(r, t, i, n) {
       if (r = +r, t = t >>> 0, !n) {
         const g = Math.pow(2, 8 * i - 1);
-        L(this, r, t, i, g - 1, -g);
+        N(this, r, t, i, g - 1, -g);
       }
-      let o = i - 1, f = 1, s = 0;
+      let o = i - 1, f = 1, a = 0;
       for (this[t + o] = r & 255; --o >= 0 && (f *= 256); )
-        r < 0 && s === 0 && this[t + o + 1] !== 0 && (s = 1), this[t + o] = (r / f >> 0) - s & 255;
+        r < 0 && a === 0 && this[t + o + 1] !== 0 && (a = 1), this[t + o] = (r / f >> 0) - a & 255;
       return t + i;
     }, u.prototype.writeInt8 = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 1, 127, -128), r < 0 && (r = 255 + r + 1), this[t] = r & 255, t + 1;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 1, 127, -128), r < 0 && (r = 255 + r + 1), this[t] = r & 255, t + 1;
     }, u.prototype.writeInt16LE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 2, 32767, -32768), this[t] = r & 255, this[t + 1] = r >>> 8, t + 2;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 2, 32767, -32768), this[t] = r & 255, this[t + 1] = r >>> 8, t + 2;
     }, u.prototype.writeInt16BE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 2, 32767, -32768), this[t] = r >>> 8, this[t + 1] = r & 255, t + 2;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 2, 32767, -32768), this[t] = r >>> 8, this[t + 1] = r & 255, t + 2;
     }, u.prototype.writeInt32LE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 4, 2147483647, -2147483648), this[t] = r & 255, this[t + 1] = r >>> 8, this[t + 2] = r >>> 16, this[t + 3] = r >>> 24, t + 4;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 4, 2147483647, -2147483648), this[t] = r & 255, this[t + 1] = r >>> 8, this[t + 2] = r >>> 16, this[t + 3] = r >>> 24, t + 4;
     }, u.prototype.writeInt32BE = function(r, t, i) {
-      return r = +r, t = t >>> 0, i || L(this, r, t, 4, 2147483647, -2147483648), r < 0 && (r = 4294967295 + r + 1), this[t] = r >>> 24, this[t + 1] = r >>> 16, this[t + 2] = r >>> 8, this[t + 3] = r & 255, t + 4;
+      return r = +r, t = t >>> 0, i || N(this, r, t, 4, 2147483647, -2147483648), r < 0 && (r = 4294967295 + r + 1), this[t] = r >>> 24, this[t + 1] = r >>> 16, this[t + 2] = r >>> 8, this[t + 3] = r & 255, t + 4;
     }, u.prototype.writeBigInt64LE = D(function(r, t = 0) {
       return z(this, r, t, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
     }), u.prototype.writeBigInt64BE = D(function(r, t = 0) {
@@ -782,7 +782,7 @@ function requireBuffer() {
       if (t < 0) throw new RangeError("Index out of range");
     }
     function Q(e, r, t, i, n) {
-      return r = +r, t = t >>> 0, n || Z(e, r, t, 4), B.write(e, r, t, i, 23, 4), t + 4;
+      return r = +r, t = t >>> 0, n || Z(e, r, t, 4), w.write(e, r, t, i, 23, 4), t + 4;
     }
     u.prototype.writeFloatLE = function(r, t, i) {
       return Q(this, r, t, !0, i);
@@ -790,7 +790,7 @@ function requireBuffer() {
       return Q(this, r, t, !1, i);
     };
     function v(e, r, t, i, n) {
-      return r = +r, t = t >>> 0, n || Z(e, r, t, 8), B.write(e, r, t, i, 52, 8), t + 8;
+      return r = +r, t = t >>> 0, n || Z(e, r, t, 8), w.write(e, r, t, i, 52, 8), t + 8;
     }
     u.prototype.writeDoubleLE = function(r, t, i) {
       return v(this, r, t, !0, i);
@@ -831,17 +831,17 @@ function requireBuffer() {
         for (o = t; o < i; ++o)
           this[o] = r;
       else {
-        const f = u.isBuffer(r) ? r : u.from(r, n), s = f.length;
-        if (s === 0)
+        const f = u.isBuffer(r) ? r : u.from(r, n), a = f.length;
+        if (a === 0)
           throw new TypeError('The value "' + r + '" is invalid for argument "value"');
         for (o = 0; o < i - t; ++o)
-          this[o + t] = f[o % s];
+          this[o + t] = f[o % a];
       }
       return this;
     };
-    const $ = {};
+    const P = {};
     function j(e, r, t) {
-      $[e] = class extends t {
+      P[e] = class extends t {
         constructor() {
           super(), Object.defineProperty(this, "message", {
             value: r.apply(this, arguments),
@@ -898,17 +898,17 @@ function requireBuffer() {
     function tr(e, r, t, i, n, o) {
       if (e > t || e < r) {
         const f = typeof r == "bigint" ? "n" : "";
-        let s;
-        throw r === 0 || r === BigInt(0) ? s = `>= 0${f} and < 2${f} ** ${(o + 1) * 8}${f}` : s = `>= -(2${f} ** ${(o + 1) * 8 - 1}${f}) and < 2 ** ${(o + 1) * 8 - 1}${f}`, new $.ERR_OUT_OF_RANGE("value", s, e);
+        let a;
+        throw r === 0 || r === BigInt(0) ? a = `>= 0${f} and < 2${f} ** ${(o + 1) * 8}${f}` : a = `>= -(2${f} ** ${(o + 1) * 8 - 1}${f}) and < 2 ** ${(o + 1) * 8 - 1}${f}`, new P.ERR_OUT_OF_RANGE("value", a, e);
       }
       yr(i, n, o);
     }
     function O(e, r) {
       if (typeof e != "number")
-        throw new $.ERR_INVALID_ARG_TYPE(r, "number", e);
+        throw new P.ERR_INVALID_ARG_TYPE(r, "number", e);
     }
     function q(e, r, t) {
-      throw Math.floor(e) !== e ? (O(e, t), new $.ERR_OUT_OF_RANGE("offset", "an integer", e)) : r < 0 ? new $.ERR_BUFFER_OUT_OF_BOUNDS() : new $.ERR_OUT_OF_RANGE(
+      throw Math.floor(e) !== e ? (O(e, t), new P.ERR_OUT_OF_RANGE("offset", "an integer", e)) : r < 0 ? new P.ERR_BUFFER_OUT_OF_BOUNDS() : new P.ERR_OUT_OF_RANGE(
         "offset",
         `>= 0 and <= ${r}`,
         e
@@ -1021,44 +1021,47 @@ function requireBuffer() {
   }(buffer)), buffer;
 }
 var bufferExports = requireBuffer();
-const encode = (a) => a.map((h) => {
-  const B = {};
-  for (const E in h)
-    if (Object.prototype.hasOwnProperty.call(h, E)) {
-      const y = JSON.stringify(h[E]);
-      B[E] = bufferExports.Buffer.from(y).toString("base64");
+const encode = (p) => p.map((h) => {
+  const w = {};
+  for (const d in h)
+    if (Object.prototype.hasOwnProperty.call(h, d)) {
+      const y = JSON.stringify(h[d]);
+      w[d] = bufferExports.Buffer.from(y).toString("base64");
     }
-  return B;
-}), parseObject = (a) => {
+  return w;
+}), parseObject = (p) => {
   try {
-    return JSON.parse(a);
+    return JSON.parse(p);
   } catch (h) {
-    return console.error(h), a;
+    return console.error(h), p;
   }
-}, decode = (a) => Array.isArray(a) ? a.map((B) => {
-  const E = {};
-  for (const y in B)
-    if (Object.prototype.hasOwnProperty.call(B, y))
+}, decode = (p) => Array.isArray(p) ? p.map((w) => {
+  const d = {};
+  for (const y in w)
+    if (Object.prototype.hasOwnProperty.call(w, y))
       try {
-        const I = bufferExports.Buffer.from(B[y], "base64").toString("utf-8");
-        E[y] = parseObject(I);
+        const I = bufferExports.Buffer.from(w[y], "base64").toString("utf-8");
+        d[y] = parseObject(I);
       } catch {
-        E[y] = B[y];
+        d[y] = w[y];
       }
-  return E;
-}) : a;
-function evaluate(code) {
-  const transformed = code.replace(/^export\s+default/, "return"), wrapped = `(function() { ${transformed} })()`;
+  return d;
+}) : p, evaluate = (code, syntax) => {
+  const pattern = syntax.cjs ? /\bmodule\.exports\s*=\s*/ : /^export\s+default/, transformed = code.replace(pattern, "return"), wrapped = `(function() { ${transformed} })()`;
   return eval(wrapped);
-}
-const plugin = (a) => {
-  const h = evaluate(a);
-  if (!h || !Array.isArray(h))
-    return `export default ${a}`;
-  const B = encode(h);
-  return `
+}, plugin = (p) => {
+  const h = {
+    cjs: /\bmodule\.exports\b/.test(p)
+  }, w = evaluate(p, h);
+  if (!w || !Array.isArray(w))
+    return h.cjs ? `module.exports = ${p}` : `export default ${p}`;
+  const d = encode(w);
+  return h.cjs ? `
+      const { decode } = require('vite-plugin-conceal');
+      module.exports = decode(${JSON.stringify(d)});
+    ` : `
     import { decode } from 'vite-plugin-conceal';
-    export default decode(${JSON.stringify(B)});
+    export default decode(${JSON.stringify(d)});
   `;
 };
 export {
