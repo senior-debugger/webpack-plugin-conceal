@@ -1,0 +1,9 @@
+.idea/
+src/
+node_modules/
+
+vite.config.js
+yarn.lock
+eslint.config.mjs
+.gitignore
+.editorconfig

@@ -1,2 +1,3 @@
-export { default as decode } from './core/decode';
-export { default as encode } from './core/encode';
+export { encode } from './utils/encode';
+export { decode } from './utils/decode';
+export { plugin as default } from './core/plugin';

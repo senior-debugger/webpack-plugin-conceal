@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'base64coder',
-      fileName: (format) => `base64coder.${format}.js`
+      name: 'webpack-plugin-conceal',
+      fileName: (format) => `webpack-plugin-conceal.${format}.js`
     },
     rollupOptions: {
       external: [],
@@ -16,12 +16,11 @@ export default defineConfig({
       }
     },
     sourcemap: true,
-    minify: 'terser'
+    minify: 'esbuild'
   },
   resolve: {
     alias: {
-      '@utils': path.resolve(__dirname, 'src/utils'),
-      '@core': path.resolve(__dirname, 'src/core'),
+      '@': path.resolve(__dirname, 'src'),
     }
   },
   plugins: [dts()]

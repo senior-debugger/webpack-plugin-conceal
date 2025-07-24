@@ -1,4 +1,4 @@
-import decode from 'base64coder/decode.min';
+import decode from 'webpack-plugin-conceal/decode.min';
 
 import data from './data.loader';
 

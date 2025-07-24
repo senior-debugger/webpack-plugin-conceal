@@ -10,7 +10,7 @@ module.exports = {
     rules: [{
       test: /\.loader.js$/,
       use: [{
-        loader: 'base64coder/index.min.js',
+        loader: 'webpack-plugin-conceal/index.min.js',
       }]
     }],
   }

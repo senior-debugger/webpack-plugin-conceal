@@ -1,83 +1,102 @@
-# Base64Coder
+# Webpack Plugin Conceal
 
-[![NPM version](https://img.shields.io/npm/v/base64coder.svg)](https://www.npmjs.com/package/base64coder)
+**webpack-plugin-conceal** is a Webpack loader that helps obscure JavaScript object arrays in your source code. At build time, it transforms your data into Base64-encoded strings, reducing the visibility of raw values in the final bundle. At runtime, it seamlessly decodes the data back into usable JavaScript objects.
 
-**Base64Coder** is a Webpack loader and utility that allows you to encode JavaScript data into Base64 to obscure it in the final bundle.
-
----
-
-## 🚀 Installation
-
-Install via [npm](https://www.npmjs.com/package/base64coder):
-
-```bash
-npm install base64coder
-```
+[![NPM version](https://img.shields.io/npm/v/webpack-plugin-conceal.svg)](https://www.npmjs.com/package/webpack-plugin-conceal)
+[![License: ISC](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 ---
 
-## 📖 Overview
+## What It Does
 
-This library helps you encode structured data into Base64 format. It can be useful when you want to hide text or other embedded data in your source code.
+Imagine this source file:
 
----
-
-## 🧩 Usage
-
-### 1. Create a data file
-
-Create a file, e.g., `data.loader.js`, and export the data using a variable named `base64data`:
-
-```javascript
-const data1 = {
-  header: 'What is the best programming language?',
-  questions: [
-    { text: 'Javascript', isRight: true },
-    { text: 'C#', isRight: false }
-  ]
-};
-
-const data2 = {
-  title: 'JS or JSON?',
-  text: 'This is a page created for ...'
-};
-
-// Required: export a variable named base64data
-var base64data = [data1, data2];
+```js
+// data.loader.js
+var base64data = [
+  { name: 'Alice', age: 30 },
+  { name: 'Bob', age: 25 }
+];
 module.exports = base64data;
 ```
 
----
+Instead of including the raw names "Alice" and "Bob" in your production bundle, the plugin will encode them during build like this:
 
-### 2. Import and decode data
+```js
+module.exports = [
+  { name: "\"QWxpY2U=\"", age: "MzA=" },
+  { name: "\"Qm9i\"", age: "MjU=" }
+];
+```
 
-In your controller or application module:
+Then, at runtime, you can decode them like this:
 
-```javascript
-import decode from 'base64coder/decode';
+```js
+import decode from 'webpack-plugin-conceal/decode';
 import data from './data.loader';
 
-(function showDecoded() {
-  console.log('Decoded:', decode(data));
-})();
+console.log(decode(data));
+// Output:
+// [
+//   { name: 'Alice', age: 30 },
+//   { name: 'Bob', age: 25 }
+// ]
+```
+
+This makes it harder for tools or users inspecting your production JavaScript to directly read your raw data.
+
+---
+
+## Features
+
+- Encodes JavaScript object arrays using Base64-encoded JSON
+- Automatically decodes data at runtime
+- Works with any `.loader.js` or custom-matched files
+- Lightweight and easy to integrate
+
+---
+
+## Installation
+
+```bash
+npm install webpack-plugin-conceal
 ```
 
 ---
 
-### 3. Webpack configuration
+## Usage
 
-Add the loader to your Webpack configuration:
+### 1. Create a `.loader.js` file
+
+```js
+var base64data = [
+  { name: 'Alice', age: 30 },
+  { name: 'Bob', age: 25 }
+];
+
+module.exports = base64data;
+```
+
+### 2. Import and decode in runtime
+
+```js
+import decode from 'webpack-plugin-conceal/decode';
+import data from './data.loader';
+
+const decoded = decode(data);
+```
+
+### 3. Add the loader to Webpack config
 
 ```js
 module.exports = {
-  // ...
   module: {
     rules: [
       {
         test: /\.loader\.js$/,
         use: [
           {
-            loader: 'base64coder',
+            loader: 'webpack-plugin-conceal',
           }
         ]
       }
@@ -88,7 +107,26 @@ module.exports = {
 
 ---
 
-## 🧪 Examples
+## API
 
-View a working example here:  
-[GitHub Example »](https://github.com/senior-debugger/base64Coder/tree/master/examples/1)
+### `encode(data: any[]): Record<string, string>[]`
+
+Encodes an array of objects into Base64-encoded strings.
+
+### `decode(source: any[]): any[]`
+
+Decodes an array of Base64-encoded object properties back to JavaScript values.
+
+---
+
+## Caveats
+
+- Only supports CommonJS modules with a `module.exports` assignment to an array
+- Input file must export a variable named `base64data`
+- Intended for basic obfuscation, not for secure encryption
+
+---
+
+## License
+
+ISC © 2025 Dmitrii Zakharov

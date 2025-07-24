@@ -1,17 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "outDir": "./dist",
     "paths": {
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@core/*": [
-        "core/*"
-      ]
+      "@/*": ["src/*"]
     },
     "rootDir": "./src",
     "strict": true,
