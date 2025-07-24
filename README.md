@@ -11,36 +11,32 @@
 
 Imagine this source file:
 
-```js
-// data.loader.js
-var base64data = [
+```ts
+// users.conceal.ts
+export default [
   { name: 'Alice', age: 30 },
   { name: 'Bob', age: 25 }
 ];
-module.exports = base64data;
 ```
 
-Instead of including the raw names "Alice" and "Bob" in your production bundle, the plugin will encode them during build like this:
+Instead of including the raw names "Alice" and "Bob" directly in your production bundle, the plugin will transform it during build into:
 
-```js
-module.exports = [
+```ts
+import { decode } from 'webpack-plugin-conceal';
+
+export default decode([
   { name: "\"QWxpY2U=\"", age: "MzA=" },
   { name: "\"Qm9i\"", age: "MjU=" }
-];
+]);
 ```
 
-Then, at runtime, you can decode them like this:
+Then, at runtime, the `decode()` function will automatically decode the Base64 strings and parse them back to their original values:
 
 ```js
-import decode from 'webpack-plugin-conceal/decode';
-import data from './data.loader';
-
-console.log(decode(data));
-// Output:
-// [
-//   { name: 'Alice', age: 30 },
-//   { name: 'Bob', age: 25 }
-// ]
+[
+  { name: 'Alice', age: 30 },
+  { name: 'Bob', age: 25 }
+]
 ```
 
 This makes it harder for tools or users inspecting your production JavaScript to directly read your raw data.
@@ -49,10 +45,10 @@ This makes it harder for tools or users inspecting your production JavaScript to
 
 ## Features
 
+- Transform any pattern of files (e.g.: `.conceal.js`, `.conceal.ts`, `.conceal.jsx`, `.conceal.tsx`)
 - Encodes JavaScript object arrays using Base64-encoded JSON
 - Automatically decodes data at runtime
-- Works with any `.loader.js` or custom-matched files
-- Lightweight and easy to integrate
+- Lightweight and easy to configure
 
 ---
 
@@ -60,40 +56,22 @@ This makes it harder for tools or users inspecting your production JavaScript to
 
 ```bash
 npm install webpack-plugin-conceal
+# or
+yarn add webpack-plugin-conceal
 ```
 
 ---
 
 ## Usage
 
-### 1. Create a `.loader.js` file
-
-```js
-var base64data = [
-  { name: 'Alice', age: 30 },
-  { name: 'Bob', age: 25 }
-];
-
-module.exports = base64data;
-```
-
-### 2. Import and decode in runtime
-
-```js
-import decode from 'webpack-plugin-conceal/decode';
-import data from './data.loader';
-
-const decoded = decode(data);
-```
-
-### 3. Add the loader to Webpack config
+### 1. Add the loader to `Webpack config`
 
 ```js
 module.exports = {
   module: {
     rules: [
       {
-        test: /\.loader\.js$/,
+        test: /\.conceal\.(js | ts)$/,
         use: [
           {
             loader: 'webpack-plugin-conceal',
@@ -104,6 +82,35 @@ module.exports = {
   }
 };
 ```
+
+### 2. Create a `.conceal.ts` or `.conceal.js` file
+
+```js
+// data.conceal.ts
+export default [
+  { name: 'Alice', age: 30 },
+  { name: 'Bob', age: 25 }
+];
+```
+
+### 3. Import created before file(s) somewhere in the application.
+
+```ts
+import usersData from './users.conceal';
+
+console.log(usersData);
+```
+
+---
+
+## How It Works
+
+1. The plugin identifies files matching the configured pattern.
+2. It evaluates the file content to extract the default export (must be an array of objects).
+3. Each object is encoded by:
+  - Serializing each value to JSON
+  - Encoding each JSON string using Base64
+4. A transformed module is generated that decodes the data at runtime.
 
 ---
 
